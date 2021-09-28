@@ -9,6 +9,8 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 1. What is the meaning of the following binary operators in C?
    * `|`
+   - Bitwise OR
+   - If a = 1001 and b=1111 then a|b gives 1111
    * `&`
    * `^`
    * `~`

@@ -59,7 +59,17 @@ int main(void)
         // Pause several milliseconds
         _delay_ms(SHORT_DELAY);
 
-        // WRITE YOUR CODE HERE
+        // Invert LED in Data Register
+        // PORTB = PORTB xor 0010 0000
+        PORTB = PORTB ^ (1<<LED_GREEN);
+				_delay_ms(100); //DOT
+		PORTB = PORTB ^ (1<<LED_GREEN);
+				_delay_ms(SHORT_DELAY);		
+			
+		PORTB = PORTB ^ (1<<LED_GREEN);
+				_delay_ms(500); //COMMA
+		PORTB = PORTB ^ (1<<LED_GREEN);
+				_delay_ms(SHORT_DELAY);	
     }
 
     // Will never reach this

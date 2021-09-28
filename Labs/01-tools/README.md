@@ -9,22 +9,33 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 1. What is the meaning of the following binary operators in C?
    * `|`
-   - Bitwise OR
-   - If a = 1001 and b=1111 then a|b gives 1111
+      - Bitwise OR
+      - If a = 1001 and b=1111 then a|b gives 1111
    * `&`
+      - Bitwise AND
+      - If a = 1001 and b=1111 then a&b gives 1001
    * `^`
+      - Bitwise XOR
+      - If a = 1001 and b=1111 then a^b gives 0110
    * `~`
+      - Bitwise Complement
+      - If a=01011 then ~a gives 10100
    * `<<`
+      - Bitwise Shift Left	
+      - If a=1010 and b=1 then a<<b gives 0100 (Left shifted by 1 and one 0 is inserted at the end)
    * `>>`
-
+      - Bitwise Shift Right	
+      - If a=1111 and b=2 then a>>b gives 0011 (Right shifted by 2 and two 0’s are inserted at the beginning)
+      
 2. Complete truth table with operators: `|`, `&`, `^`, `~`
 
 | **b** | **a** |**b or a** | **b and a** | **b xor a** | **not b** |
 | :-: | :-: | :-: | :-: | :-: | :-: |
-| 0 | 0 |  |  |  |  |
-| 0 | 1 |  |  |  |  |
-| 1 | 0 |  |  |  |  |
-| 1 | 1 |  |  |  |  |
+| 0 | 0 | 0 | 0 | 0 | 1 |
+| 0 | 1 | 1 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 0 | 1 | 0 |
+| 1 | 1 | 1 | 1 | 0 | 0 |
+
 
 
 ### Morse code

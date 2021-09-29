@@ -39,15 +39,22 @@ int main(void)
     PORTB = PORTB & ~(1<<LED_GREEN);
 
     // Configure the second LED at port C
-    // WRITE YOUR CODE HERE
+    DDRC = DDRC | (1<<LED_BLUE);
+    PORTC = PORTC & ~(1<<LED_BLUE);
+
+    // Configure Push button at port D and enable internal pull-up resistor
+
 
     // Infinite loop
     while (1)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-
-        // WRITE YOUR CODE HERE
+        PORTB = PORTB ^ (1<<LED_GREEN); //ON
+        PORTC = PORTC ^ (1<<LED_BLUE); //OFF
+        _delay_ms(BLINK_DELAY);
+        PORTB = PORTB ^ (1<<LED_GREEN); //OFF
+        PORTC = PORTC ^ (1<<LED_BLUE); //ON
     }
 
     // Will never reach this

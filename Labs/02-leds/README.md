@@ -1,9 +1,9 @@
 
-# Lab 2: YOUR_FIRSTNAME FAMILYNAME
+# Lab 2: Tereza Beránková
 
 Link to your `Digital-electronics-2` GitHub repository:
 
-   [https://github.com/...](https://github.com/...)
+   [https://github.com/xberan49/Digital_electronics-2](https://github.com/xberan49/Digital_electronics-2)
 
 
 ### Active-low and active-high LEDs

@@ -48,10 +48,9 @@ int main(void)
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
         PORTB = PORTB ^ (1<<LED_GREEN);
-        _delay_ms(BLINK_DELAY);
-        PORTB = PORTB ^ (1<<LED_GREEN);
         PORTC = PORTC ^ (1<<LED_BLUE);
         _delay_ms(BLINK_DELAY);
+        PORTB = PORTB ^ (1<<LED_GREEN);
         PORTC = PORTC ^ (1<<LED_BLUE);
     }
 

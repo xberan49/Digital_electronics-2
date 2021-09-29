@@ -37,7 +37,7 @@ int main(void)
 
     // Configure the second LED at port C
     DDRC = DDRC | (1<<LED_BLUE);
-    PORTC = PORTC & ~(1<<LED_BLUE);
+    PORTC = PORTC |(1<<LED_BLUE);
 
     // Configure Push button at port D and enable internal pull-up resistor
 

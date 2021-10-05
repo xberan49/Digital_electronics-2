@@ -1,9 +1,9 @@
 
-# Lab 2: YOUR_FIRSTNAME FAMILYNAME
+# Lab 2: Tereza Beránková
 
 Link to your `Digital-electronics-2` GitHub repository:
 
-   [https://github.com/...](https://github.com/...)
+   [https://github.com/xberan49/Digital_electronics-2](https://github.com/xberan49/Digital_electronics-2)
 
 
 ### Active-low and active-high LEDs
@@ -18,14 +18,14 @@ Link to your `Digital-electronics-2` GitHub repository:
 | **PORTB** | **Description** |
 | :-: | :-- |
 | 0 | Output low value |
-| 1 | |
+| 1 | Output high value |
 
 | **DDRB** | **PORTB** | **Direction** | **Internal pull-up resistor** | **Description** |
 | :-: | :-: | :-: | :-: | :-- |
 | 0 | 0 | input | no | Tri-state, high-impedance |
-| 0 | 1 | | | |
-| 1 | 0 | | | |
-| 1 | 1 | | | |
+| 0 | 1 | input | yes | Pxn will source current if ext. pulled low |
+| 1 | 0 | output | no | Output low (sink) |
+| 1 | 1 | output |no | Output high (source) |
 
 2. Part of the C code listing with syntax highlighting, which blinks alternately with a pair of LEDs; let one LED is connected to port B and the other to port C:
 
@@ -39,15 +39,22 @@ int main(void)
     PORTB = PORTB & ~(1<<LED_GREEN);
 
     // Configure the second LED at port C
-    // WRITE YOUR CODE HERE
+    DDRC = DDRC | (1<<LED_BLUE);
+    PORTC = PORTC & ~(1<<LED_BLUE);
+
+    // Configure Push button at port D and enable internal pull-up resistor
+
 
     // Infinite loop
     while (1)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-
-        // WRITE YOUR CODE HERE
+        PORTB = PORTB ^ (1<<LED_GREEN); //ON
+        PORTC = PORTC ^ (1<<LED_BLUE); //OFF
+        _delay_ms(BLINK_DELAY);
+        PORTB = PORTB ^ (1<<LED_GREEN); //OFF
+        PORTC = PORTC ^ (1<<LED_BLUE); //ON
     }
 
     // Will never reach this

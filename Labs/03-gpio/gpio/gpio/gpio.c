@@ -22,7 +22,9 @@ void GPIO_config_output(volatile uint8_t *reg_name, uint8_t pin_num)
 
 void GPIO_config_input_nopull(volatile uint8_t *reg_name, uint8_t pin_num)
 {
-     *reg_name = *reg_name | (1<<pin_num);// * = pointer
+      *reg_name = *reg_name & ~(1<<pin_num);  // Data Direction Register
+      reg_name++;                     // Change pointer to Data Register
+      *reg_name = *reg_name & ~(1<<pin_num);   // Data Register
 }
 
 
@@ -48,15 +50,15 @@ void GPIO_write_low(volatile uint8_t *reg_name, uint8_t pin_num)
 
 void GPIO_write_high(volatile uint8_t *reg_name, uint8_t pin_num)
 {
-     *reg_name = *reg_name & ~(1<<pin_num);
+     *reg_name = *reg_name | (1<<pin_num);
 }
 
-void GPIO_toggle(volatile uint8_t *&PORTB, uint8_t pin_num)
+void GPIO_toggle(volatile uint8_t *reg_name, uint8_t pin_num)
 {
      *reg_name = *reg_name ^(1<<pin_num);
 }
 
-void GPIO_read(volatile uint8_t *&PINB, uint8_t pin_num)
+uint8_t GPIO_read(volatile uint8_t *reg_name, uint8_t pin_num)
 {
-    return(*reg_name & (1 << pin_num));
+	return (((*reg_name) >> pin_num) & 1);
 }

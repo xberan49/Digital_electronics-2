@@ -43,7 +43,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 			 GPIO_toggle(&PORTB, LED_GREEN);
 			 GPIO_toggle(&PORTC, LED_BLUE);
 		 
-       }
+     		  }
 
     // Will never reach this
     return 0;

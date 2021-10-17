@@ -45,7 +45,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 
 /**
- * @brief Defines interrupt enable/disable modes for Timer/Counter1.
+ * @brief Defines interrupt enable/disable modes for Timer/Counter0.
  */
 /** @brief Enable overflow interrupt, 1 --> enable */
 #define TIM0_overflow_interrupt_enable()  TIMSK0 |= (1<<TOIE0);

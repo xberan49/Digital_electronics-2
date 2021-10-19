@@ -58,7 +58,54 @@ Link to your `Digital-electronics-2` GitHub repository:
 3. Flowchart figure for function `main()` and interrupt service routine `ISR(TIMER1_OVF_vect)` of application that ensures the flashing of one LED in the timer interruption. When the button is pressed, the blinking is faster, when the button is released, it is slower. Use only a timer overflow and not a delay library.
 
    ![your figure]()
+   
+   ```c
+int main(void)
+{
+	GPIO_config_input_pullup(&DDRD, BUTTON);
+    // Configuration of LED(s) at port B
+    GPIO_config_output(&DDRB, LED_D1);
+    GPIO_write_low(&PORTB, LED_D1);
 
+    // Configuration of 16-bit Timer/Counter1 for LED blinking
+    // Set the overflow prescaler to 262 ms and enable interrupt
+	TIM1_overflow_33ms()
+    TIM1_overflow_4s();
+    TIM1_overflow_interrupt_enable();
+
+    // Enables interrupts by setting the global interrupt mask
+    sei();
+
+    // Infinite loop
+    while (1)
+    {
+	  if(GPIO_read(&PIND, BUTTON) == 0)
+	  {
+		  TIM1_overflow_33ms();
+	  }
+	  else
+	  {
+		  TIM1_overflow_4s();
+	  }
+    }
+
+    // Will never reach this
+    return 0;
+}
+
+/* Interrupt service routines ----------------------------------------*/
+/**********************************************************************
+ * Function: Timer/Counter1 overflow interrupt
+ * Purpose:  Toggle D1 LED on Multi-function shield.
+ **********************************************************************/
+ISR(TIMER1_OVF_vect)
+{
+
+    GPIO_toggle(&PORTB,LED_D1);
+
+}
+
+```
 
 ### Knight Rider
 

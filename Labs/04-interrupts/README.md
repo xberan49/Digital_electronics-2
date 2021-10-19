@@ -60,7 +60,7 @@ Link to your `Digital-electronics-2` GitHub repository:
    ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/lab%2004%20diagram.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/lab%2004%20diagram.png)
    
    
-   ```c
+```c
 int main(void)
 {
 	GPIO_config_input_pullup(&DDRD, BUTTON);

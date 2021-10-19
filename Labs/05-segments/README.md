@@ -6,10 +6,26 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 
 ### 7-segment library
+0. In the following table, write the binary values of the segments for display 0 to 9 on a common anode 7-segment display.
 
+   | **Digit** | **A** | **B** | **C** | **D** | **E** | **F** | **G** | **DP** |
+   | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+   | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |
+   | 1 | 1 | 0 | 0 | 1 | 1 | 1 | 1 | 1 |
+   | 2 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 1 |
+   | 3 | 0 | 0 | 0 | 0 | 1 | 1 | 0 | 1 |
+   | 4 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
+   | 5 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 |
+   | 6 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+   | 7 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 |
+   | 8 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+   | 9 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
+   
 1. In your words, describe the difference between Common Cathode and Common Anode 7-segment display.
-   * CC SSD
-   * CA SSD
+   * CC SSD - all cathodes are connected together to logic 0 or ground
+            - the individual segments are illuminated by application of a HIGH or logic 1
+   * CA SSD - all anodes are connected together to logic 1 
+            - the individual segments are illuminated by applying a ground logic 0 or LOW
 
 2. Code listing with syntax highlighting of two interrupt service routines (`TIMER0_OVF_vect`, `TIMER0_OVF_vect`) from counter application with at least two digits, ie. values from 00 to 59:
 

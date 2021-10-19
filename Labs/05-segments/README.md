@@ -1,114 +1,53 @@
-# Lab 4: YOUR_FIRSTNAME FAMILYNAME
+# Lab 5: YOUR_FIRSTNAME FAMILYNAME
 
 Link to your `Digital-electronics-2` GitHub repository:
 
    [https://github.com/...](https://github.com/...)
 
 
-### Overflow times
+### 7-segment library
 
-1. Complete table with overflow times.
+1. In your words, describe the difference between Common Cathode and Common Anode 7-segment display.
+   * CC SSD
+   * CA SSD
 
-| **Module** | **Number of bits** | **1** | **8** | **32** | **64** | **128** | **256** | **1024** |
-| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| Timer/Counter0 | 8  | 16u | 128u | -- | 1024u | -- | 4096u | 16384u | 
-| Timer/Counter1 | 16 |   4096u  | 32768u | -- | 262144u | -- | 1048576u | 4194304u |
-| Timer/Counter2 | 8  | 16u | 128u | 512u | 1024u | 2048u | 4096u | 16384u |
-
-
-### Timer library
-
-1. In your words, describe the difference between common C function and interrupt service routine.
-   * Function - runs within the context of a main program
-   * Interrupt service routine - runs within the context of the interrupt handler
-
-2. Part of the header file listing with syntax highlighting, which defines settings for Timer/Counter0:
+2. Code listing with syntax highlighting of two interrupt service routines (`TIMER0_OVF_vect`, `TIMER0_OVF_vect`) from counter application with at least two digits, ie. values from 00 to 59:
 
 ```c
-/**
- * @name  Definitions for 8-bit Timer/Counter0
- * @note  t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz
- */
-// WRITE YOUR CODE HERE
-/** @brief Stop timer, prescaler 000 --> STOP */
-#define TIM0_stop()           TCCR0B &= ~((1<<CS02) | (1<<CS01) | (1<<CS00));
-/** @brief Set overflow 16us, prescaler 001 --> 1 */
-#define TIM0_overflow_16us()   TCCR0B &= ~((1<<CS02) | (1<<CS01)); TCCR0B |= (1<<CS00);
-/** @brief Set overflow 128us, prescaler 010 --> 8 */
-#define TIM0_overflow_128us()  TCCR0B &= ~((1<<CS02) | (1<<CS00)); TCCR0B |= (1<<CS01);
-/** @brief Set overflow 1ms, prescaler 011 --> 64 */
-#define TIM0_overflow_1ms() TCCR0B &= ~(1<<CS02); TCCR0B |= (1<<CS01) | (1<<CS00);
-/** @brief Set overflow 4ms, prescaler 100 --> 256 */
-#define TIM0_overflow_4ms()    TCCR0B &= ~((1<<CS01) | (1<<CS00)); TCCR0B |= (1<<CS02);
-/** @brief Set overflow 16ms, prescaler // 101 --> 1024 */
-#define TIM0_overflow_16ms()    TCCR0B &= ~(1<<CS01); TCCR0B |= (1<<CS02) | (1<<CS00);
-
-
-/**
- * @brief Defines interrupt enable/disable modes for Timer/Counter0.
- */
-/** @brief Enable overflow interrupt, 1 --> enable */
-#define TIM0_overflow_interrupt_enable()  TIMSK0 |= (1<<TOIE0);
-/** @brief Disable overflow interrupt, 0 --> disable */
-#define TIM0_overflow_interrupt_disable() TIMSK0 &= ~(1<<TOIE0);
-
-
-```
-
-3. Flowchart figure for function `main()` and interrupt service routine `ISR(TIMER1_OVF_vect)` of application that ensures the flashing of one LED in the timer interruption. When the button is pressed, the blinking is faster, when the button is released, it is slower. Use only a timer overflow and not a delay library.
-
-   ![your figure]()
-   
-   ```c
-int main(void)
-{
-	GPIO_config_input_pullup(&DDRD, BUTTON);
-    // Configuration of LED(s) at port B
-    GPIO_config_output(&DDRB, LED_D1);
-    GPIO_write_low(&PORTB, LED_D1);
-
-    // Configuration of 16-bit Timer/Counter1 for LED blinking
-    // Set the overflow prescaler to 262 ms and enable interrupt
-	TIM1_overflow_33ms()
-    TIM1_overflow_4s();
-    TIM1_overflow_interrupt_enable();
-
-    // Enables interrupts by setting the global interrupt mask
-    sei();
-
-    // Infinite loop
-    while (1)
-    {
-	  if(GPIO_read(&PIND, BUTTON) == 0)
-	  {
-		  TIM1_overflow_33ms();
-	  }
-	  else
-	  {
-		  TIM1_overflow_4s();
-	  }
-    }
-
-    // Will never reach this
-    return 0;
-}
-
-/* Interrupt service routines ----------------------------------------*/
 /**********************************************************************
  * Function: Timer/Counter1 overflow interrupt
- * Purpose:  Toggle D1 LED on Multi-function shield.
+ * Purpose:  Increment counter value from 00 to 59.
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-
-    GPIO_toggle(&PORTB,LED_D1);
+    // WRITE YOUR CODE HERE
 
 }
-
 ```
 
-### Knight Rider
+```c
+/**********************************************************************
+ * Function: Timer/Counter0 overflow interrupt
+ * Purpose:  Display tens and units of a counter at SSD.
+ **********************************************************************/
+ISR(TIMER0_OVF_vect)
+{
+    static uint8_t pos = 0;
 
-1. Scheme of Knight Rider application with four LEDs and a push button, connected according to Multi-function shield. Connect AVR device, LEDs, resistors, push button, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
+    // WRITE YOUR CODE HERE
+
+}
+```
+
+3. Flowchart figure for function `SEG_clk_2us()` which generates one clock period on `SEG_CLK` pin with a duration of 2&nbsp;us. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
+
+   ![your figure]()
+
+
+### Kitchen alarm
+
+Consider a kitchen alarm with a 7-segment display, one LED and three push buttons: start, +1 minute, -1 minute. Use the +1/-1 minute buttons to increment/decrement the timer value. After pressing the Start button, the countdown starts. The countdown value is shown on the display in the form of mm.ss (minutes.seconds). At the end of the countdown, the LED will start blinking.
+
+1. Scheme of kitchen alarm; do not forget the supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values.
 
    ![your figure]()

@@ -1,8 +1,8 @@
-# Lab 4: YOUR_FIRSTNAME FAMILYNAME
+# Lab 4: TEREZA BERÁNKOVÁ
 
 Link to your `Digital-electronics-2` GitHub repository:
 
-   [https://github.com/...](https://github.com/...)
+   [https://github.com/xberan49/Digital_electronics-2](https://github.com/xberan49/Digital_electronics-2)
 
 
 ### Overflow times
@@ -59,6 +59,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 
    ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/lab%2004%20diagram.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/lab%2004%20diagram.png)
    
+   
    ```c
 int main(void)
 {
@@ -111,4 +112,6 @@ ISR(TIMER1_OVF_vect)
 
 1. Scheme of Knight Rider application with four LEDs and a push button, connected according to Multi-function shield. Connect AVR device, LEDs, resistors, push button, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
-   ![your figure]()
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/shield_connection.PNG](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/shield_connection.PNG)
+   
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/knight_rider_scheme.PNG](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/04-interrupts/knight_rider_scheme.PNG)

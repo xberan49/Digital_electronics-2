@@ -15,6 +15,7 @@
 #define LED_D2  PB4
 #define LED_D3  PB3
 #define LED_D4  PB2
+#define BUTTON  PC1
 
 /* Includes ----------------------------------------------------------*/
 #include <avr/io.h>         // AVR device-specific IO definitions
@@ -31,13 +32,15 @@
  **********************************************************************/
 int main(void)
 {
+	GPIO_config_input_pullup(&DDRC, BUTTON);
     // Configuration of LED(s) at port B
     GPIO_config_output(&DDRB, LED_D1);
     GPIO_write_low(&PORTB, LED_D1);
 
     // Configuration of 16-bit Timer/Counter1 for LED blinking
     // Set the overflow prescaler to 262 ms and enable interrupt
-    TIM1_overflow_262ms();
+	TIM1_overflow_33ms()
+    TIM1_overflow_4s();
     TIM1_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
@@ -46,8 +49,14 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        /* Empty loop. All subsequent operations are performed exclusively 
-         * inside interrupt service routines ISRs */
+	  if(GPIO_read(&PINC, BUTTON) == 0)
+	  {
+		  TIM1_overflow_33ms();
+	  }
+	  else
+	  {
+		  TIM1_overflow_4s();
+	  }
     }
 
     // Will never reach this

@@ -70,7 +70,7 @@ ISR(TIMER0_OVF_vect)
     if (pos > 1) 
 	{
 	    pos = 0;
-	 }
+	}
 
 }
 ```

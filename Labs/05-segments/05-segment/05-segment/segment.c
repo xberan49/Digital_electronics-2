@@ -147,7 +147,14 @@ void SEG_update_shift_regs(uint8_t segments, uint8_t position)
 /**********************************************************************
  * Function: SEG_clear()
  **********************************************************************/
-
+void SEG_clear (void)
+{
+	SEG_update_shift_regs(~(uint8_t)0, 0);
+	SEG_update_shift_regs(~(uint8_t)0, 1);
+	SEG_update_shift_regs(~(uint8_t)0, 2);
+	SEG_update_shift_regs(~(uint8_t)0, 3);
+	SEG_update_shift_regs(~(uint8_t)0, 4);
+}
 /**********************************************************************
  * Function: SEG_clk_2us()
  **********************************************************************/

@@ -16,8 +16,8 @@
 #include "segment.h"        // Seven-segment display library for AVR-GCC
 
 
-volatile uint8_t cnt0 = 0
-volatile uint8_t cnt1 = 0
+volatile uint8_t cnt0=0;
+volatile uint8_t cnt1=0;
 
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
@@ -30,10 +30,10 @@ int main(void)
 {
     // Configure SSD signals
     SEG_init();
-
+	SEG_clear();
     // Test of SSD: display number '3' at position 0
     // 0b(a b c d e f g DP)
-    SEG_update_shift_regs(3, 0);
+    //SEG_update_shift_regs(3, 0);
 
 
     // Configure 16-bit Timer/Counter1 for Decimal counter
@@ -69,18 +69,30 @@ ISR(TIMER1_OVF_vect)
     // WRITE YOUR CODE HERE
     cnt0++;
     if (cnt0 > 9)
-    cnt0=0;
-    cnt1++ //dodìlat
-    
-    
+    { cnt0=0;
+    }
+	
+	cnt1++;
+	if (cnt1 > 5)
+	{ cnt1=0;
+	}
+	    
 }
 ISR(TIMER0_OVF_vect)
 {
     static uint8_t pos=0;
     
+    if (pos == 0)
+	{
+	    SEG_update_shift_regs(cnt0,pos);
+    }
+    else
+	{
+	    SEG_update_shift_regs(cnt1,pos);
+    }
     pos++;
-    if(pos > 1)
-    { 
-        pos = 0;
-        SEG_update_shift_regs(cnt0,pos);// dodìlat
-        
+    if (pos > 1) 
+	{
+	    pos = 0;
+	  }
+}   

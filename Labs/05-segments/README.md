@@ -40,10 +40,10 @@ ISR(TIMER1_OVF_vect)
     { cnt0=0;
     }
 	
-	cnt1++;
-	if (cnt1 > 5)
-	{ cnt1=0;
-	}   
+    cnt1++;
+    if (cnt1 > 5)
+    { cnt1=0;
+    }   
 
 }
 ```
@@ -60,16 +60,17 @@ ISR(TIMER0_OVF_vect)
     if (pos == 0)
 	{
 	    SEG_update_shift_regs(cnt0,pos);
-    }
+        }
     else
 	{
 	    SEG_update_shift_regs(cnt1,pos);
-    }
+        }
+	
     pos++;
     if (pos > 1) 
 	{
 	    pos = 0;
-	  }
+	 }
 
 }
 ```

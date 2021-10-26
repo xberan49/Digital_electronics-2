@@ -36,7 +36,15 @@ Link to your `Digital-electronics-2` GitHub repository:
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-    // WRITE YOUR CODE HERE
+   cnt0++;
+    if (cnt0 > 9)
+    { cnt0=0;
+    }
+	
+	cnt1++;
+	if (cnt1 > 5)
+	{ cnt1=0;
+	}   
 
 }
 ```
@@ -50,7 +58,19 @@ ISR(TIMER0_OVF_vect)
 {
     static uint8_t pos = 0;
 
-    // WRITE YOUR CODE HERE
+    if (pos == 0)
+	{
+	    SEG_update_shift_regs(cnt0,pos);
+    }
+    else
+	{
+	    SEG_update_shift_regs(cnt1,pos);
+    }
+    pos++;
+    if (pos > 1) 
+	{
+	    pos = 0;
+	  }
 
 }
 ```

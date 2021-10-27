@@ -23,10 +23,10 @@ Use schematic of the [LCD keypad shield](../../Docs/arduino_shield.pdf) and find
    | **LCD signal(s)** | **AVR pin(s)** | **Description** |
    | :-: | :-: | :-- |
    | RS | PB0 | Register selection signal. Selection between Instruction register (RS=0) and Data register (RS=1) |
-   | R/W | GND |  |
-   | E | PB1[-9] |  |
-   | D[3:0] |  |  |
-   | D[7:4] | PD7[7] |  |
+   | R/W | GND | 1=Read, 0=Write |
+   | E | PB1[-9] | signal enable |
+   | D[0-3] |  |  |
+   | D[4-7] | PD4-7[4-7] | Upper nibble used in 4-bit mode |
 
 What is the ASCII table? What are the codes/values for uppercase letters `A` to `Z`, lowercase letters `a` to `z`, and numbers `0` to `9` in this table?
 
@@ -41,6 +41,21 @@ What is the ASCII table? What are the codes/values for uppercase letters `A` to 
    | `0` | 48 | 0x30 |
    | `1` | 49 | 0x31 |
    | ... |  |  |
+
+ | **Function name** | **Function parameters** | **Description** | **Example** |
+   | :-- | :-- | :-- | :-- |
+   | `lcd_init` | `LCD_DISP_OFF`<br>`LCD_DISP_ON`<br>`LCD_DISP_ON_CURSOR`<br>`LCD_DISP_ON_CURSOR_BLINK` | Display off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp; | `lcd_init(LCD_DISP_OFF);`<br>&nbsp;<br>&nbsp;<br>&nbsp; |
+   | `lcd_clrscr` |
+dispAttr	LCD_DISP_OFF display off
+LCD_DISP_ON display on, cursor off
+LCD_DISP_ON_CURSOR display on, cursor on
+LCD_DISP_ON_CURSOR_BLINK display on, cursor on flashing
+ | | `lcd_clrscr();` |
+   | `lcd_gotoxy` | | | |
+   | `lcd_putc` | | | |
+   | `lcd_puts` | | | |
+   | `lcd_command` | | | |
+   | `lcd_data` | | | |
 
 
 ### LCD display module

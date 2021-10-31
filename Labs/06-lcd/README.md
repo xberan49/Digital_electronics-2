@@ -79,8 +79,25 @@ http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.h
 ```c
 /* Variables ---------------------------------------------------------*/
 // Custom character definition
-uint8_t customChar[16] = {
-    // WRITE YOUR CODE HERE
+uint8_t CustomChar_0[8] = {
+	0b00000,
+	0b00000,
+	0b11011,
+	0b11111,
+	0b11111,
+	0b01110,
+	0b00100,
+	0b00000
+};
+uint8_t CustomChar_1[8] = {
+	0b00100,
+	0b01110,
+	0b00100,
+	0b00100,
+	0b11111,
+	0b11111,
+	0b11111,
+	0b11111
 
 };
 ```

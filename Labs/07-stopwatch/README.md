@@ -1,61 +1,71 @@
-# Lab 6: TEREZA BERÁNKOVÁ
+# Lab 7: YOUR_FIRSTNAME FAMILYNAME
 
-Link to your `Digital-electronics-2` GitHub repository:
+Link to this file in your GitHub repository:
 
-[https://github.com/xberan49/Digital_electronics-2/tree/main/Labs/06-lcd](https://github.com/xberan49/Digital_electronics-2/tree/main/Labs/06-lcd)
-
-### LCD display module
-
-1. In your words, describe what ASCII table is.
-   * ASCII- table that defines codes for individual characters
-
-2. (Hand-drawn) picture of time signals between ATmega328P and LCD keypad shield (HD44780 driver) when transmitting three character data `De2`.
-
-   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/image.jpg](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/image.jpg)
+[https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
 
 
-### Stopwatch
+ | **Operation** | **Register(s)** | **Bit(s)** | **Description** |
+   | :-- | :-: | :-: | :-- |
+   | Voltage reference    | ADMUX | REFS1:0 | 00: ..., 01: AVcc voltage reference (5V), ... |
+   | Input channel        | ADMUX | MUX3:0 | 0000: ADC0, 0001: ADC1, ... |
+   | ADC enable           | ADCSRA |  |  |
+   | Start conversion     |  |  |  |
+   | ADC interrupt enable |  |  |  |
+   | ADC clock prescaler  |  | ADPS2:0 | 000: Division factor 2, 001: 2, 010: 4, ...|
+   | ADC 10-bit result    |  |  |  |
 
-1. Flowchart figure for `TIMER2_OVF_vect` interrupt service routine which overflows every 16&nbsp;ms but it updates the stopwatch LCD approximately every 100&nbsp;ms (6 x 16&nbsp;ms = 100&nbsp;ms). Display tenths of a second and seconds `00:seconds.tenths`. Let the stopwatch counts from `00:00.0` to `00:59.9` and then starts again. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
-
-   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/flow_chart_06.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/flow_chart_06.png)
 
 
-### Custom characters
+### Analog-to-Digital Conversion
 
-1. Code listing with syntax highlighting of two custom character definition:
+1. Complete table with voltage divider, calculated, and measured ADC values for all five push buttons.
+
+   | **Push button** | **PC0[A0] voltage** | **ADC value (calculated)** | **ADC value (measured)** |
+   | :-: | :-: | :-: | :-: |
+   | Right  | 0&nbsp;V | 0   |  |
+   | Up     | 0.495&nbsp;V | 101 |  |
+   | Down   |       |     |  |
+   | Left   |       |     |  |
+   | Select |       |     |  |
+   | none   |       |     |  |
+
+2. Code listing of ACD interrupt service routine for sending data to the LCD/UART and identification of the pressed button. Always use syntax highlighting and meaningful comments:
 
 ```c
-/* Variables ---------------------------------------------------------*/
-// Custom character definition
-uint8_t CustomChar_0[8] = {
-	0b00000,
-	0b00000,
-	0b11011,
-	0b11111,
-	0b11111,
-	0b01110,
-	0b00100,
-	0b00000
-};
-uint8_t CustomChar_1[8] = {
-	0b00100,
-	0b01110,
-	0b00100,
-	0b00100,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b11111
+/**********************************************************************
+ * Function: ADC complete interrupt
+ * Purpose:  Display value on LCD and send it to UART.
+ **********************************************************************/
+ISR(ADC_vect)
+{
+    uint16_t value = 0;
+    char lcd_string[4] = "0000";
 
-};
+    value = ADC;                  // Copy ADC result to 16-bit variable
+    itoa(value, lcd_string, 10);  // Convert decimal value to string
+
+    // WRITE YOUR CODE HERE
+
+}
 ```
 
 
-### Kitchen alarm
+### UART communication
 
-Consider a kitchen alarm with an LCD, one LED and three push buttons: start, +1 minute, -1 minute. Use the +1/-1 minute buttons to increment/decrement the timer value. After pressing the Start button, the countdown starts. The countdown value is shown on the display in the form of mm.ss (minutes.seconds). At the end of the countdown, the LED will start blinking.
+1. (Hand-drawn) picture of UART signal when transmitting three character data `De2` in 4800 7O2 mode (7 data bits, odd parity, 2 stop bits, 4800&nbsp;Bd).
 
-1. Scheme of kitchen alarm; do not forget the supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values.
+   ![your figure]()
 
-   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/circuit.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/06-lcd/circuit.png)
+2. Flowchart figure for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
+
+   ![your figure]()
+
+
+### Temperature meter
+
+Consider an application for temperature measurement and display. Use temperature sensor [TC1046](http://ww1.microchip.com/downloads/en/DeviceDoc/21496C.pdf), LCD, one LED and a push button. After pressing the button, the temperature is measured, its value is displayed on the LCD and data is sent to the UART. When the temperature is too high, the LED will start blinking.
+
+1. Scheme of temperature meter. The image can be drawn on a computer or by hand. Always name all components and their values.
+
+   ![your figure]()

@@ -1,8 +1,8 @@
-# Lab 7: YOUR_FIRSTNAME FAMILYNAME
+# Lab 7: TEREZA BERÁNKOVÁ
 
 Link to this file in your GitHub repository:
 
-[https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
+[https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/README.md](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/README.md)
 
 
 ### Analog-to-Digital Conversion
@@ -27,13 +27,24 @@ Link to this file in your GitHub repository:
  **********************************************************************/
 ISR(ADC_vect)
 {
-    uint16_t value = 0;
-    char lcd_string[4] = "0000";
-
-    value = ADC;                  // Copy ADC result to 16-bit variable
-    itoa(value, lcd_string, 10);  // Convert decimal value to string
-
-    // WRITE YOUR CODE HERE
+   uint16_t value = 0;
+   char lcd_string[]= "0000";
+   
+   value = ADC;
+   itoa(value, lcd_string, 10);//convert decimal value to string
+   
+   
+   lcd_gotoxy(8,0);
+   lcd_puts("  "); //clear
+   lcd_gotoxy(8,0);
+   lcd_puts(lcd_string);
+   
+   itoa(value, lcd_string, 16);//convert hexadecimal value to string
+   
+   lcd_gotoxy(13,0);
+   lcd_puts("  ");
+   lcd_gotoxy(13,0);
+   lcd_puts(lcd_string);
 
 }
 ```

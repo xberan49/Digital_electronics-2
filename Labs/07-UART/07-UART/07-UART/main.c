@@ -17,7 +17,7 @@
 #include "lcd.h"            // Peter Fleury's LCD library
 #include <stdlib.h>         // C library. Needed for conversion function
 #include "uart.h"           // Peter Fleury's UART library
-#define F_CPU 16000000
+#define F_CPU 16000000L
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
  * Function: Main function where the program execution begins
@@ -39,7 +39,8 @@ int main(void)
     // Set ADC reference to AVcc
     
     ADMUX |= (1<<REFS0);
-    
+    ADMUX &= ~(1 << REFS1);
+	
     // Set input channel to ADC0
     ADMUX &= ~((1<<MUX0)|(1<<MUX1)|(1<<MUX2)|(1<<MUX3));
     // Enable ADC module
@@ -49,6 +50,8 @@ int main(void)
     // Set clock prescaler to 128
     ADCSRA |= ((1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0));
     // Configure 16-bit Timer/Counter1 to start ADC conversion
+	ADCSRB |= (1 << ADTS2) | (1 << ADTS1);
+	ADCSRB &= ~(1 << ADTS0);
     // Set prescaler to 262 ms and enable overflow interrupt
     TIM1_overflow_262ms();
     TIM1_overflow_interrupt_enable();
@@ -88,18 +91,18 @@ ISR(TIMER1_OVF_vect)
 ISR(ADC_vect)
 {
    uint16_t value = 0;
-   char lcd_string[]= "0000";
+   char lcd_string[4]= "0000";
    
    value = ADC;
-   itoa(value, lcd_string, 10);
+   itoa(value, lcd_string, 10);//convert decimal value to string
    
    
    lcd_gotoxy(8,0);
-   lcd_puts("  ");
+   lcd_puts("  "); //clear
    lcd_gotoxy(8,0);
    lcd_puts(lcd_string);
    
-   itoa(value, lcd_string, 16);
+   itoa(value, lcd_string, 16);//convert hexadecimal value to string
    
    lcd_gotoxy(13,0);
    lcd_puts("  ");

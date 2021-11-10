@@ -1,20 +1,8 @@
-# Lab 7: YOUR_FIRSTNAME FAMILYNAME
+# Lab 7: TEREZA BERÁNKOVÁ
 
 Link to this file in your GitHub repository:
 
-[https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
-
-
- | **Operation** | **Register(s)** | **Bit(s)** | **Description** |
-   | :-- | :-: | :-: | :-- |
-   | Voltage reference    | ADMUX | REFS1:0 | 00: ..., 01: AVcc voltage reference (5V), ... |
-   | Input channel        | ADMUX | MUX3:0 | 0000: ADC0, 0001: ADC1, ... |
-   | ADC enable           | ADCSRA |  |  |
-   | Start conversion     |  |  |  |
-   | ADC interrupt enable |  |  |  |
-   | ADC clock prescaler  |  | ADPS2:0 | 000: Division factor 2, 001: 2, 010: 4, ...|
-   | ADC 10-bit result    |  |  |  |
-
+[https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/README.md](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/README.md)
 
 
 ### Analog-to-Digital Conversion
@@ -25,10 +13,10 @@ Link to this file in your GitHub repository:
    | :-: | :-: | :-: | :-: |
    | Right  | 0&nbsp;V | 0   |  |
    | Up     | 0.495&nbsp;V | 101 |  |
-   | Down   |       |     |  |
-   | Left   |       |     |  |
-   | Select |       |     |  |
-   | none   |       |     |  |
+   | Down   |  1,203 | 246 |  |
+   | Left   | 1,970 | 403 |  |
+   | Select | 3,182 | 651 |  |
+   | none   | 5 | 1023 |  |
 
 2. Code listing of ACD interrupt service routine for sending data to the LCD/UART and identification of the pressed button. Always use syntax highlighting and meaningful comments:
 
@@ -39,13 +27,24 @@ Link to this file in your GitHub repository:
  **********************************************************************/
 ISR(ADC_vect)
 {
-    uint16_t value = 0;
-    char lcd_string[4] = "0000";
-
-    value = ADC;                  // Copy ADC result to 16-bit variable
-    itoa(value, lcd_string, 10);  // Convert decimal value to string
-
-    // WRITE YOUR CODE HERE
+   uint16_t value = 0;
+   char lcd_string[]= "0000";
+   
+   value = ADC;
+   itoa(value, lcd_string, 10);//convert decimal value to string
+   
+   
+   lcd_gotoxy(8,0);
+   lcd_puts("  "); //clear
+   lcd_gotoxy(8,0);
+   lcd_puts(lcd_string);
+   
+   itoa(value, lcd_string, 16);//convert hexadecimal value to string
+   
+   lcd_gotoxy(13,0);
+   lcd_puts("  ");
+   lcd_gotoxy(13,0);
+   lcd_puts(lcd_string);
 
 }
 ```
@@ -55,11 +54,11 @@ ISR(ADC_vect)
 
 1. (Hand-drawn) picture of UART signal when transmitting three character data `De2` in 4800 7O2 mode (7 data bits, odd parity, 2 stop bits, 4800&nbsp;Bd).
 
-   ![your figure]()
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/UART%20signal.jpg](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/UART%20signal.jpg)
 
 2. Flowchart figure for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
 
-   ![your figure]()
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/flowchart.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/flowchart.png)
 
 
 ### Temperature meter
@@ -68,4 +67,4 @@ Consider an application for temperature measurement and display. Use temperature
 
 1. Scheme of temperature meter. The image can be drawn on a computer or by hand. Always name all components and their values.
 
-   ![your figure]()
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/scheme.PNG](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/07-UART/scheme.PNG)

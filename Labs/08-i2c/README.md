@@ -10,8 +10,8 @@ Link to this file in your GitHub repository:
 
    | **Signal** | **MCU pin** | **Arduino pin(s)** |
    | :-: | :-: | :-: |
-   | SDA (data)  |  |  |
-   | SCL (clock) |  |  |
+   | SDA (data)  |  | PC4 |
+   | SCL (clock) |  | PC5 |
 
 2. What is the general structure of I2C address and data frames?
 

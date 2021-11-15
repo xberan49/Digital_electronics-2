@@ -76,7 +76,6 @@ int main(void)
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-    static uint8_t Number_of_devices = 0;
     static state_t state = STATE_IDLE;  // Current state of the FSM
     static uint8_t addr = 7;            // I2C slave address
     uint8_t result = 1;                 // ACK result from the bus
@@ -89,20 +88,12 @@ ISR(TIMER1_OVF_vect)
     case STATE_IDLE:
         addr++;
         // If slave address is between 8 and 119 then move to SEND state
-    if ( (addr >7) & (addr< 120 ))
-    state=STATE_SEND;
-    else 
-    {
-        if ( addr==120 )
-            {
-            uart_puts("\r\n\rNumber of devices : ");
-            itoa(Number_of_devices,uart_string,10);
-            uart_puts(uart_string);
-            }
-        addr=0;
-        state=STATE_IDLE;
-      }
-      break;
+		if ( (addr >7) & (addr< 120 ))
+			state=STATE_SEND;
+		else if (addr == 0) 
+			uart_puts("\n\r\n\r");
+			
+		break;
     
     // Transmit I2C slave address and get result
     case STATE_SEND:
@@ -128,12 +119,11 @@ ISR(TIMER1_OVF_vect)
     // A module connected to the bus was found
     case STATE_ACK:
         // Send info about active I2C slave to UART and move to IDLE
-    itoa(addr, uart_string, 16);//hexadecimal
-    uart_puts(uart_string);
-    uart_puts("  ");
-    
-    Number_of_devices++;
-    state = STATE_IDLE;
+		itoa(addr, uart_string, 16);//hexadecimal
+		uart_puts(uart_string);
+		uart_puts("\n\r");
+		
+		state = STATE_IDLE;
         break;
 
     // If something unexpected happens then move to IDLE

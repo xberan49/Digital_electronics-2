@@ -1,24 +1,8 @@
-# Lab 8: YOUR_FIRSTNAME LASTNAME
+# Lab 8: TEREZA BERÁNKOVÁ
 
 Link to this file in your GitHub repository:
 
 [https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
-
-## Preparation tasks (done before the lab at home)
-
-1. Use schematic of the [Arduino Uno](../../Docs/arduino_shield.pdf) board and find out to which pins the SDA and SCL signals are connected.
-
-   | **Signal** | **MCU pin** | **Arduino pin(s)** |
-   | :-: | :-: | :-: |
-   | SDA (data)  |  | PC4 |
-   | SCL (clock) |  | PC5 |
-
-2. What is the general structure of I2C address and data frames?
-
-   | **Frame type** | **8** | **7** | **6** | **5** | **4** | **3** | **2** | **1** | **0** | **Description**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
-   | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-- |
-   | Address | | | | | | | | | | |
-   | Data    | | | | | | | | | | |
 
 
 ### Arduino Uno pinout
@@ -57,8 +41,12 @@ ISR(TIMER1_OVF_vect)
     case STATE_IDLE:
         addr++;
         // If slave address is between 8 and 119 then move to SEND state
-
-        break;
+		if ( (addr >7) & (addr< 120 ))
+			state=STATE_SEND;
+		else if (addr == 0) 
+			uart_puts("\n\r\n\r");
+			
+		break;
     
     // Transmit I2C slave address and get result
     case STATE_SEND:
@@ -73,13 +61,22 @@ ISR(TIMER1_OVF_vect)
         twi_stop();
         /* Test result from I2C bus. If it is 0 then move to ACK state, 
          * otherwise move to IDLE */
-
+        if (result == 0)
+        { 
+            state = STATE_ACK;
+        }
+        else state = STATE_IDLE;
+        
         break;
 
     // A module connected to the bus was found
     case STATE_ACK:
         // Send info about active I2C slave to UART and move to IDLE
-
+		  itoa(addr, uart_string, 16);//hexadecimal
+		  uart_puts(uart_string);
+	     uart_puts("\n\r");
+		
+		  state = STATE_IDLE;
         break;
 
     // If something unexpected happens then move to IDLE

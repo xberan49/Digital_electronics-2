@@ -2,7 +2,7 @@
 
 Link to this file in your GitHub repository:
 
-[https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
+[https://github.com/xberan49/Digital_electronics-2/tree/main/Labs/08-i2c](https://github.com/xberan49/Digital_electronics-2/tree/main/Labs/08-i2c)
 
 
 ### Arduino Uno pinout
@@ -15,7 +15,7 @@ Link to this file in your GitHub repository:
    * SPI pins
    * external interrupt pins INT0, INT1
 
-   ![your figure](Images/arduino_uno_pinout.png)
+   ![https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/08-i2c/Arduino%20Uno%20pinout.png](https://github.com/xberan49/Digital_electronics-2/blob/main/Labs/08-i2c/Arduino%20Uno%20pinout.png)
 
 ### I2C
 
